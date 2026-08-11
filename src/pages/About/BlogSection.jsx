@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaCalendarAlt, FaTag } from 'react-icons/fa';
 import { FiSearch } from 'react-icons/fi';
-
+import image04 from '../../assets/AboutImage/4.png'
+import image05 from '../../assets/AboutImage/5.png'
+import image06 from '../../assets/AboutImage/6.png'
+import image07 from '../../assets/AboutImage/7.png'
+import image08 from '../../assets/AboutImage/8.png'
+import image09 from '../../assets/AboutImage/9.png'
+import image10 from '../../assets/AboutImage/10.png'
+import image11 from '../../assets/AboutImage/11.png'
 const allBlogPosts = [
     {
         id: 1,
         title: 'Going all-in with millennial design',
-        image: 'YOUR_BLOG_IMAGE_1',
+        image: image04,
         admin: 'Admin',
         date: '14 Oct 2022',
         tag: 'Wood',
@@ -16,7 +23,7 @@ const allBlogPosts = [
     {
         id: 2,
         title: 'Exploring new ways of decorating',
-        image: 'YOUR_BLOG_IMAGE_2',
+        image: image05,
         admin: 'Admin',
         date: '14 Oct 2022',
         tag: 'Handmade',
@@ -25,7 +32,7 @@ const allBlogPosts = [
     {
         id: 3,
         title: 'Handmade pieces that took time to make',
-        image: 'YOUR_BLOG_IMAGE_3',
+        image: image06,
         admin: 'Admin',
         date: '14 Oct 2022',
         tag: 'Handmade',
@@ -42,11 +49,11 @@ const categories = [
 ];
 
 const recentPosts = [
-    { id: 1, title: 'Going all-in with millennial design', date: '03 Oct 2022', image: 'YOUR_RECENT_1' },
-    { id: 2, title: 'Exploring new ways of decorating', date: '03 Oct 2022', image: 'YOUR_RECENT_2' },
-    { id: 3, title: 'Handmade pieces that took time to make', date: '03 Oct 2022', image: 'YOUR_RECENT_3' },
-    { id: 4, title: 'Modern home in Milan', date: '03 Oct 2022', image: 'YOUR_RECENT_4' },
-    { id: 5, title: 'Colorful office redesign', date: '03 Oct 2022', image: 'YOUR_RECENT_5' }
+    { id: 1, title: 'Going all-in with millennial design', date: '03 Oct 2022', image: image07 },
+    { id: 2, title: 'Exploring new ways of decorating', date: '03 Oct 2022', image: image08},
+    { id: 3, title: 'Handmade pieces that took time to make', date: '03 Oct 2022', image: image09 },
+    { id: 4, title: 'Modern home in Milan', date: '03 Oct 2022', image: image10},
+    { id: 5, title: 'Colorful office redesign', date: '03 Oct 2022', image:image11}
 ];
 
 const BlogSection = () => {

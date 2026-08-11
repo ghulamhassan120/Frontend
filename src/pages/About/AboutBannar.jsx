@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import aboutBanner from '../../assets/ShopImage/1.png'
 
-const AboutBanner = ({ title = "Blog", currentPage = "Blog", backgroundImage =aboutBanner }) => {
+
+const AboutBanner = ({ title = "About", currentPage = "About", backgroundImage =aboutBanner }) => {
     return (
         <section 
             className="relative w-full h-72 sm:h-80 md:h-96 bg-cover bg-center flex items-center justify-center"

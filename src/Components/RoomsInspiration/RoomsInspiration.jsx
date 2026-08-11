@@ -2,7 +2,9 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import { FiArrowRight } from 'react-icons/fi'; 
-
+import image1 from '../../assets/1.png'
+import image2 from '../../assets/2.png'
+import image3 from '../../assets/3.png'
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -10,21 +12,21 @@ import 'swiper/css/navigation';
 const rooms = [
   {
     id: 1,
-    image: 'YOUR_ROOM_IMAGE_URL_1', 
+    image: image1, 
     category: '01 — Bed Room',
     title: 'Inner Peace',
     alt: 'Minimalist bedroom with gallery wall'
   },
   {
     id: 2,
-    image: 'YOUR_ROOM_IMAGE_URL_2', 
+    image: image2, 
     category: '02 — Dining Area',
     title: 'Bright Corner',
     alt: 'White dining room with chest of drawers'
   },
   {
     id: 3,
-    image: 'YOUR_ROOM_IMAGE_URL_3', 
+    image: image3, 
     category: '03 — Living Space',
     title: 'Cozy Vibes',
     alt: 'Modern living room setup'

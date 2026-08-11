@@ -1,34 +1,97 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { FaStar, FaFacebookF, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import Navbar from "../Navbar/Navbar";
 
+// Dummy Products Data (Shop/OurProducts page se match karta hua)
+const dummyProductsData = [
+    {
+        _id: '1',
+        title: 'Syltherine',
+        description: 'Stylish cafe chair with comfortable seating and sleek modern legs.',
+        price: 250000,
+        oldPrice: 'Rp 3.500.000',
+        image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1580481077494-e3299acae5e7?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80'
+        ],
+        badge: { type: 'discount', text: '-30%' }
+    },
+    {
+        _id: '2',
+        title: 'Leviosa',
+        description: 'Stylish cafe chair designed for maximum comfort and durability.',
+        price: 250000,
+        oldPrice: '',
+        image: 'https://images.unsplash.com/photo-1580481077494-e3299acae5e7?auto=format&fit=crop&w=600&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1580481077494-e3299acae5e7?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80'
+        ],
+        badge: null
+    },
+    {
+        _id: '3',
+        title: 'Lolita',
+        description: 'Luxury big sofa with premium fabric cushioning for your living room.',
+        price: 7000000,
+        oldPrice: 'Rp 14.000.000',
+        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1540518614846-7ede433c4ef0?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80'
+        ],
+        badge: { type: 'discount', text: '-50%' }
+    },
+    {
+        _id: '4',
+        title: 'Respira',
+        description: 'Outdoor bar table and stool set built with weather-resistant materials.',
+        price: 500000,
+        oldPrice: '',
+        image: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80',
+        images: [
+            'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80',
+            'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80'
+        ],
+        badge: { type: 'new', text: 'New' }
+    }
+];
+
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  console.log(product);
+  
+  // URL se ID match karke product dhoondhein, agar na mile toh default Asgaard sofa dikhayein
+  const foundProduct = dummyProductsData.find((item) => item._id === id) || {
+    _id: id || 'default',
+    title: 'Asgaard sofa',
+    description: 'Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.',
+    price: 250000.00,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1580481077494-e3299acae5e7?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80',
+    ]
+  };
+
+  const [product] = useState(foundProduct);
+  const [loading] = useState(false);
 
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedSize, setSelectedSize] = useState("L");
   const [selectedColor, setSelectedColor] = useState("purple");
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    const fetchProductDetail = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/product/${id}`);
-        const data = await response.json();
-        setProduct(data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching product detail:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchProductDetail();
-  }, [id]);
 
   if (loading) {
     return (
@@ -67,7 +130,7 @@ const ProductDetail = () => {
           </Link>
           <span>&gt;</span>
           <span className="text-black font-medium border-l pl-2 border-gray-400">
-            {product.title || "Asgaard sofa"}
+            {product.title}
           </span>
         </div>
 
@@ -100,7 +163,7 @@ const ProductDetail = () => {
 
           <div className="lg:col-span-5 flex flex-col gap-4">
             <h1 className="text-4xl font-normal text-gray-900">
-              {product.title || "Asgaard sofa"}
+              {product.title}
             </h1>
             <p className="text-2xl font-medium text-gray-700">
               Rs.{" "}
@@ -121,8 +184,7 @@ const ProductDetail = () => {
             </div>
 
             <p className="text-sm text-gray-600 leading-relaxed">
-              {product.description ||
-                "Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound."}
+              {product.description}
             </p>
 
             <div className="flex flex-col gap-2 mt-2">
@@ -179,7 +241,7 @@ const ProductDetail = () => {
 
               <button
                 onClick={() =>
-                  console.log("Added to cart:", product, "Qty:", quantity)
+                  alert(`Added ${quantity} of ${product.title} (Size: ${selectedSize}, Color: ${selectedColor}) to cart!`)
                 }
                 className="border border-black text-black px-8 py-3 rounded-xl text-sm font-normal hover:bg-black hover:text-white transition"
               >
@@ -187,7 +249,7 @@ const ProductDetail = () => {
               </button>
 
               <button
-                onClick={() => console.log("Compare clicked")}
+                onClick={() => alert(`Compared ${product.title}`)}
                 className="border border-black text-black px-8 py-3 rounded-xl text-sm font-normal hover:bg-black hover:text-white transition"
               >
                 + Compare
@@ -199,7 +261,7 @@ const ProductDetail = () => {
             <div className="flex flex-col gap-3 text-xs text-gray-500">
               <div className="flex gap-6">
                 <span className="w-20">SKU</span>
-                <span>: SS001</span>
+                <span>: SS00{product._id}</span>
               </div>
               <div className="flex gap-6">
                 <span className="w-20">Category</span>
@@ -214,18 +276,21 @@ const ProductDetail = () => {
                 <div className="flex items-center gap-4 text-black">
                   <a
                     href="#facebook"
+                    onClick={(e) => e.preventDefault()}
                     className="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80"
                   >
                     <FaFacebookF size={10} />
                   </a>
                   <a
                     href="#linkedin"
+                    onClick={(e) => e.preventDefault()}
                     className="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80"
                   >
                     <FaLinkedinIn size={10} />
                   </a>
                   <a
                     href="#twitter"
+                    onClick={(e) => e.preventDefault()}
                     className="w-5 h-5 bg-black text-white rounded-full flex items-center justify-center hover:opacity-80"
                   >
                     <FaTwitter size={10} />
